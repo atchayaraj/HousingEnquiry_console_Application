@@ -415,14 +415,21 @@ class getassetdata extends dataWarehouse{
 			location=scan.nextLine();
 			location=location.toLowerCase();
 			System.out.println();
-			System.out.println("Enter the number of rooms in your home less than or equal to 4 "+i+" : ");
-      room=scan.nextInt();
+			System.out.println("Enter the number of rooms in your home "+i+" less than or equal to 4 : ");
 			System.out.println();
-			while(room<=4)
+			while(result)
 			{
-        System.out.println("Enter the number of room less than or equal to 4\n");
 				room=scan.nextInt();
+				if(room<=4)
+				{
+					result=false;
+				}
+				else
+				{
+					System.out.println("Enter the number of room less than or equal to 4\n");
+				}
 			}
+			result=true;
 			scan.nextLine();
 			System.out.println();
 			System.out.println("Enter the rent of your home "+i+" : ");
@@ -432,8 +439,8 @@ class getassetdata extends dataWarehouse{
 			System.out.println();
 			System.out.println("Enter the Contact No: ");
 			contact_no=scan.nextLine();
-	        System.out.println();
-		    addownerasset(new setownerasset(ownername,location,room,rent,No_of_home,contact_no,unique_id,name));
+	                System.out.println();
+		        addownerasset(new setownerasset(ownername,location,room,rent,No_of_home,contact_no,unique_id,name));
 			}
 		}
 }
