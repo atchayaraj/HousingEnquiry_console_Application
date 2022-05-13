@@ -1,0 +1,468 @@
+import java.util.*;
+class loginsignup{
+    private String name;
+    private String username;
+    private int age;
+    private String DOB;
+    private String address;
+    private String password;
+    private String Contact_no;
+    static Scanner scan = new Scanner(System.in);
+    
+    loginsignup(){
+        
+        System.out.println("Enter the name: ");
+        name=scan.nextLine();
+        System.out.println();
+        System.out.println("Enter the Date of Birth in the Format DD/MM/YYYY: ");
+        DOB=scan.nextLine();
+        System.out.println();
+        System.out.println("Enter the age: ");
+        age=scan.nextInt();
+        scan.nextLine();
+        System.out.println();
+        System.out.println("Enter the Address: ");
+        address=scan.nextLine();
+        System.out.println();
+        System.out.println("Enter the Contact No: ");
+        Contact_no=scan.nextLine();
+        System.out.println();
+        int len=1;
+        while(len<8)
+        {
+        	System.out.println("Create a New password: ");
+        	System.out.println("It should contain 8 characters or above: ");
+        	password=scan.next();
+        	len=password.length();
+        }
+        scan.nextLine();
+        System.out.println();
+        System.out.println("You signed-up successfully");
+        System.out.println();
+        System.out.println("Your username is "+name);
+        System.out.println();
+    }
+    String getusername() 
+    {
+    	  return this.username;
+    }
+    String getname()
+    {
+        return this.name;
+    }
+    String getpassword()
+    {
+        return this.password;
+    }
+}
+
+class setownerasset{
+	
+	private String ownername,Name_of_the_contact_person;
+	private String location;
+	private String contact_no;
+	private int rent,No_of_home,room;
+	private int unique_id;
+	
+	setownerasset(String name, String location, int room,int rent,int No_of_home,String contact_no,int unique_id,String  Name_of_the_contact_person) 
+  {
+		
+		this.ownername=name;
+		this.location=location;
+		this.room=room;
+		this.rent=rent;
+		this.No_of_home=No_of_home;
+		this.contact_no=contact_no;
+		this.unique_id=unique_id;
+		this.Name_of_the_contact_person=Name_of_the_contact_person;
+	}
+	String getownername()
+	{
+		return this.ownername;
+	}
+	String getlocation()
+	{
+		return this.location;
+	}
+	int getroom()
+	{
+		return this.room;
+	}
+	String getcontactnumber()
+	{
+		return this.contact_no;
+	}
+	int getrent()
+	{
+		return this.rent;
+	}
+	int getNo_of_home()
+	{
+		return this.No_of_home;
+	}
+	int getuniqueid()
+	{
+		return this.unique_id;
+	}
+	String getNameofthecontactperson()
+	{
+		return this.Name_of_the_contact_person;
+	}
+}
+class dataWarehouse{
+    private static ArrayList<loginsignup> list = new ArrayList<loginsignup> ();
+    private static ArrayList<loginsignup> list1 = new ArrayList<loginsignup> ();
+    private static ArrayList<setownerasset> list2 = new ArrayList<setownerasset>();
+    static String identification,uniqueid_identification;
+    static int incrementor=0;
+    Scanner scan = new Scanner(System.in);
+    static void addowner(loginsignup data)
+    {
+        list.add(data);
+    }
+    static void addtenant(loginsignup data)
+    {
+        list1.add(data);
+    }
+    static void addownerasset(setownerasset data)
+    {
+    	  list2.add(data);
+    }
+    void showownerassetdata(String username) 
+    {
+    	
+    	for(setownerasset show : dataWarehouse.list2)
+    	{
+ 
+    		if(username.equals(show.getownername()))
+    		{
+    		System.out.println("Name                                : "+show.getownername());
+    		System.out.println("Location of the Rental home         : "+show.getlocation());
+    		System.out.println("Number of rooms in that Home        : "+show.getroom());
+    		System.out.println("Rent for that Home                  : "+show.getrent());
+    		System.out.println("Number of Homes that you've entered : "+show.getNo_of_home());
+    		System.out.println("Name of the contact person          : "+show.getNameofthecontactperson());
+    		System.out.println("Contact number                      : "+show.getcontactnumber());
+    		System.out.println("unquie_id                           : "+show.getuniqueid()+"\n\n");
+    		}
+    	}
+    	
+    }
+    int getunique_id(String username) {
+    	
+    	for(loginsignup run:dataWarehouse.list)
+    	{
+    		
+    	    if(username.equals(run.getname()))
+    	    {
+    	    	return (list.size()+ incrementor++);
+    	    }
+    	}
+		  return 0;
+    }
+    int checkuniqueid(String username)
+    {
+    	for(setownerasset show:dataWarehouse.list2)
+    	{
+    		
+    		if(username.equals(show.getownername()))
+    		{
+    			System.out.println("checking Unique id"+show.getuniqueid()+"\n");
+    			return show.getuniqueid();
+    		}
+    	}
+		  return 0;
+    	
+    }
+    void showdatafortenant()
+    {
+    	int rent,flag=0;
+    	String location,tenantanswer;
+    	boolean cur_status=true;
+    	while(cur_status)
+    		{
+    			System.out.println("Enter the prefered location or if you don't want to enter, just enter no\n\n");
+    			location=scan.nextLine();
+    			location=location.toLowerCase();
+    			System.out.println("Enter the rent amount that you want to search or if you don't want to enter, just enter \"0\"\n\n");
+    			rent=scan.nextInt();
+    			scan.nextLine();
+    			for(setownerasset show : dataWarehouse.list2)
+    	    	{
+    				if(location.equals(show.getlocation()) && rent==0)
+    			    {
+    					flag=1;
+    					System.out.println("Location of that Rental home             :"+show.getlocation());
+    	    		    System.out.println("Number of rooms in that Home             :"+show.getroom());
+    	    		    System.out.println("Rent for that Home                       :"+show.getrent());
+    	    		    System.out.println("Owner Name                               :"+show.getownername());
+    	    		    System.out.println("Name of the Contact person for that home :"+show.getNameofthecontactperson());
+    	    		    System.out.println("Contact number                           :"+show.getcontactnumber()+"\n\n");
+    			    }
+    				else if(rent>=show.getrent() && location.equals("no"))
+    				{
+    					flag=1;
+    					System.out.println("Location of that Rental home             :"+show.getlocation());
+    	    		    System.out.println("Number of rooms in that Home             :"+show.getroom());
+    	    		    System.out.println("Rent for that Home                       :"+show.getrent());
+    	    		    System.out.println("Owner Name                               :"+show.getownername());
+    	    		    System.out.println("Name of the Contact person for that home :"+show.getNameofthecontactperson());
+    	    		    System.out.println("Contact number                           :"+show.getcontactnumber()+"\n\n");
+    				}
+    				else if(rent>=show.getrent())
+    				{
+    					if(location.equals(show.getlocation()))
+    					{
+    						flag=1;
+        					System.out.println("Location of that Rental home             :"+show.getlocation());
+        	    		    System.out.println("Number of rooms in that Home             :"+show.getroom());
+        	    		    System.out.println("Rent for that Home                       :"+show.getrent());
+        	    		    System.out.println("Owner Name                               :"+show.getownername());
+        	    		    System.out.println("Name of the Contact person for that home :"+show.getNameofthecontactperson());
+        	    		    System.out.println("Contact number                           :"+show.getcontactnumber()+"\n\n");
+    					}
+    					
+    				}
+    				else if(location.equals("no") && rent==0)
+    				{
+    					flag=1;
+    					System.out.println("Location of that Rental home             :"+show.getlocation());
+    	    		    System.out.println("Number of rooms in that Home             :"+show.getroom());
+    	    		    System.out.println("Rent for that Home                       :"+show.getrent());
+    	    		    System.out.println("Owner Name                               :"+show.getownername());
+    	    		    System.out.println("Name of the Contact person for that home :"+show.getNameofthecontactperson());
+    	    		    System.out.println("Contact number                           :"+show.getcontactnumber()+"\n\n");
+    				}
+    				
+    		     }
+    			if(flag==0)
+				  {
+					System.out.println("No Results found\n\n");
+				  }
+				  flag=0;
+    			System.out.println("Do you want to continue this search ?\nEnter yes or no\n\n");
+    			tenantanswer=scan.nextLine();
+    			if(tenantanswer.equals("yes"))
+    			{
+    				cur_status=true;
+    			}
+    			else if(tenantanswer.equals("no"))
+    			{
+    				cur_status=false;
+    			}
+    	   }
+    }
+    static int checkusercredentials(String username, String password){
+    	identification=(Housingenquiry.who);
+ 
+    	if(identification.equals("Owner"))
+    	{
+    		for(loginsignup checking : dataWarehouse.list){
+                
+                if(username.equals(checking.getname()) && password.equals(checking.getpassword()))
+                {
+                    uniqueid_identification=checking.getname();
+                    return 1;
+                }
+                
+            }
+            
+    	}
+    	else if(identification.equals("Tenant"))
+    	{
+    		for(loginsignup checking : dataWarehouse.list1){
+                
+                if(username.equals(checking.getname()) && password.equals(checking.getpassword()))
+                {
+                	System.out.println(list1.size());
+                    return 1;
+                }
+            }
+    	}
+    	return 0;
+     }
+}
+  
+interface Status{
+    void getstatus();
+}
+  
+class user extends dataWarehouse implements Status{
+    Scanner scan = new Scanner(System.in);
+    public String status;
+    int flag;
+    String username;
+    String password;
+    String identification=Housingenquiry.who;
+    public void getstatus()
+    {
+        System.out.println("Enter that you're going to signup or login");
+        System.out.println();
+        status = scan.nextLine();
+        if(status.equals("signup"))
+        {
+        	if(identification.equals("Owner"))
+        	{
+        		addowner(new loginsignup());
+        	}
+        	else if(identification.equals("Tenant"))
+        	{
+        		addtenant(new loginsignup());
+        	}
+            
+        }
+        else if(status.equals("login"))
+        {
+        	login();
+        }
+    }
+    public void login() {
+    	String owneranswer,tenantanswer;
+    	System.out.println("Enter the username: ");
+        username=scan.nextLine();
+        System.out.println();
+        System.out.println("Enter the password: ");
+        System.out.println();
+        password = scan.next();
+        scan.nextLine();
+        flag=checkusercredentials(username,password);
+        if(flag==1)
+        {
+            System.out.println("Dear "+username+"! you logged in successfully");
+            System.out.println();
+            if(identification.equals("Owner"))
+        	{
+            	System.out.println("Do you want to add you rental home's details");
+                System.out.println("Enter yes or no");
+                System.out.println();
+                owneranswer=scan.nextLine();
+                System.out.println();
+                if(owneranswer.equals("yes"))
+                {
+                	new getassetdata();
+                	showownerassetdata(username);
+                }
+                else if(owneranswer.equals("no"))
+                {
+                	
+                	showownerassetdata(username);
+                }
+        	}
+        	else if(identification.equals("Tenant"))
+        	{
+        		System.out.println("Do you want to search for rental house details");
+                System.out.println("Enter yes or no");
+                System.out.println();
+                tenantanswer=scan.nextLine();
+                System.out.println();
+                if(tenantanswer.equals("yes"))
+                {
+                	showdatafortenant();
+                }
+        	}
+        }
+        else
+        {
+            System.out.println("Invalid username or password");
+            System.out.println();
+        }
+    }
+}
+
+class getassetdata extends dataWarehouse{
+	
+	 Scanner scan = new Scanner(System.in);
+	 String name,location,contact_no,ownername;
+	 int rent,No_of_home,unique_id=0,room;
+	 boolean result=true;
+	 getassetdata() {
+		
+		System.out.println("Enter the number of rental homes do you have ");
+		System.out.println();
+		No_of_home=scan.nextInt();
+		scan.nextLine();
+		unique_id=checkuniqueid(uniqueid_identification);
+	    if(unique_id==0)
+	    {
+	    	unique_id=getunique_id(uniqueid_identification);
+	    }
+		for(int i=1;i<=No_of_home;++i)
+		{
+			System.out.println("Name and username shouldbe same\n\n");
+			System.out.println("Enter your name: ");
+			System.out.println();
+			ownername=scan.nextLine();
+			while(result)
+			{
+				result=ownername.equals(uniqueid_identification);
+				result=!result;
+				if(result==true)
+				{
+					System.out.println("Enter your name: ");
+					System.out.println();
+					ownername=scan.nextLine();
+					System.out.println();
+				}
+			}
+			result=true;
+			System.out.println();
+			System.out.println("Enter the name of contact person for this home : ");
+			System.out.println();
+			name=scan.nextLine();
+			System.out.println();
+			System.out.println("Enter the location of the rental home "+i+" : ");
+			System.out.println();
+			location=scan.nextLine();
+			location=location.toLowerCase();
+			System.out.println();
+			System.out.println("Enter the number of rooms in your home less than or equal to 4 "+i+" : ");
+      room=scan.nextInt();
+			System.out.println();
+			while(room<=4)
+			{
+        System.out.println("Enter the number of room less than or equal to 4\n");
+				room=scan.nextInt();
+			}
+			scan.nextLine();
+			System.out.println();
+			System.out.println("Enter the rent of your home "+i+" : ");
+			System.out.println();
+			rent=scan.nextInt();
+			scan.nextLine();
+			System.out.println();
+			System.out.println("Enter the Contact No: ");
+			contact_no=scan.nextLine();
+	        System.out.println();
+		    addownerasset(new setownerasset(ownername,location,room,rent,No_of_home,contact_no,unique_id,name));
+			}
+		}
+}
+
+public class Housingenquiry{
+    static String who;
+    
+    public static void main(String[] args)
+    {
+        @SuppressWarnings("resource")
+		    Scanner scan = new Scanner(System.in);
+        System.out.println("Welcome to our Housing Enquiry page!");
+        System.out.println();
+        while(true)
+        {
+        	System.out.println("Enter that you're a Tenant or an Owner");
+            System.out.println();
+            who=scan.next();
+            if(who.equals("Owner"))
+            {
+                new user().getstatus();
+                System.out.println();
+               
+            }
+            else if(who.equals("Tenant"))
+            {
+                new user().getstatus();
+                System.out.println();
+            }
+        }
+     }
+}
