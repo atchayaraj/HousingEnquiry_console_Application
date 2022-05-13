@@ -17,8 +17,13 @@ class loginsignup{
         System.out.println("Enter the Date of Birth in the Format DD/MM/YYYY: ");
         DOB=scan.nextLine();
         System.out.println();
-        System.out.println("Enter the age: ");
+        System.out.println("Enter the age and it should be within the range 13 - 80 : ");
         age=scan.nextInt();
+        while(age<=13 || age>=80)
+        {
+            System.out.println("Enter the age and it should be within the range 13 - 80 : ");
+            age=scan.nextInt();
+        }
         scan.nextLine();
         System.out.println();
         System.out.println("Enter the Address: ");
