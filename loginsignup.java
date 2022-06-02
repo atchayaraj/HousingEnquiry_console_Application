@@ -2,7 +2,7 @@ import java.util.*;
 
 public class loginsignup {
 	
-	private String name;
+    private String name;
     private String username;
     private int age;
     private String DOB;
