@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class user extends dataWarehouse {
+public class user extends dataWarehouse implements Status{
 	
     Scanner scan = new Scanner(System.in);
 	
