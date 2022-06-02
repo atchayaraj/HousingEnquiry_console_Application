@@ -2,7 +2,7 @@ import java.util.*;
 
 public class user extends dataWarehouse {
 	
-	Scanner scan = new Scanner(System.in);
+    Scanner scan = new Scanner(System.in);
 	
     String status;
     int flag;
